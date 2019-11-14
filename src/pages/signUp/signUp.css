@@ -1,0 +1,31 @@
+.sign-up{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(218, 123, 123);
+}
+.sign-up__form{
+    width: 30vw;
+   
+}
+input{
+    background-color: rgb(218, 123, 123);
+    font-size: 20px;
+    color: white;
+    margin-bottom: 10px;
+    
+}
+:-ms-input-placeholder{
+    color: white;
+}
+::-webkit-input-placeholder{
+    color: wheat;
+}
+.sign-up__error{
+    color: red;
+    position: absolute;
+    
+}
