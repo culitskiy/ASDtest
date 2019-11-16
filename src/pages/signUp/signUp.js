@@ -1,106 +1,97 @@
 import React, {useState} from 'react';
 import './signUp.css';
 import sha256 from 'crypto-js/sha256';
+import {Redirect} from 'react-router-dom';
 
 
 export const SignUp = () => {
-    // const submit = () => {
-    //     console.log('submit');
-    // };
+   
     const [userData, setUserData] = useState({
         email: '',
         password: '',
         confirmPassword: '',
         errorEmail: false,
-        errorPassword: false
+        errorPassword: false,
+        canEnter: false
     });
-    console.log('1');
+   
     const changeEmail = (event) => {
         setUserData({...userData, email: event.target.value});
     };
-    const checkEmail = () => {
-         const re =  /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
-         const valid = re.test(userData.email);
-        console.log(valid)
-         if ( valid === false){
-             setUserData({... userData, errorEmail: true} );
-           console.log('ok3')
-        }else{
-             setUserData({... userData, errorEmail: !valid});
-            
-        }
-    };
-
     const changePassword = (event) => {
         setUserData({...userData, password: event.target.value});
     };
     const changeConfirmPassword = (event) => {
         setUserData({...userData, confirmPassword: event.target.value});
     };
-    const checkPassword= () => {
-        if  ( userData.password !== userData.confirmPassword){
-            console.log('ok')
-            setUserData({...userData, errorPassword: true});
-            console.log('ok 2')
-        } else { 
-            console.log('ne okk')
-            setUserData({...userData, errorPassword: false});
+    const checkEmail =  () => {
+         const re =  /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+         const valid =  re.test(userData.email);
+      
+         if ( valid === false){
+             return true;
+        }else{
+            return false;
         }
     };
-    // const hash = sha256('124', 'sec').toString();
     
-    const clickOnSignUp = async (e) => {
-        // await e.preventDefault();
-        
-        
-        await checkEmail();
-        await checkPassword();
-        const func = () => {
-            if(userData.errorEmail === false && userData.errorPassword === false){
+    const checkPassword= () => {
+        if  ( userData.password !== userData.confirmPassword){
+            return true;
+        } else { 
+            return false;
+        }
+    };
+
+    const savingUserData = (param1, param2) => {
+        if(param1 === false && param2 === false){
             const password = sha256(userData.password, 'sec').toString();
             localStorage.setItem('email', userData.email);
             localStorage.setItem('password', password);
-        }}
-        await func();
+            setUserData({...userData, canEnter: true});
+        }
+    };
+
+    
+    const clickOnSignUp = (e) => {
+        e.preventDefault();
+        const checkPass = checkPassword();
+        const checkE = checkEmail();
+
+        setUserData({...userData, errorEmail: checkE, errorPassword: checkPass});
+        savingUserData(checkE, checkPass);
+        
 
     };
-    const errorEmailMessage = (userData.errorEmail ? <p className="">Некорректный email!</p> : null); 
-    const errorPasswordMessage = (userData.errorPassword ? <p className="">Пароли не совпадают</p>: null);
+    if(userData.canEnter === true){
+       return (
+       <Redirect to={{pathname:'/login'}}/>)
+    };
+    const errorEmailMessage = userData.errorEmail ? <p className="">Некорректный email!</p> : null; 
+    const errorPasswordMessage = userData.errorPassword ? <p className="">Пароли не совпадают</p>: null;
     return (
         <div className='sign-up'>
+            <div className='error'>
                 {errorEmailMessage}
                 {errorPasswordMessage}
-                <form >
-                    <div className="form-group">
-                        <label for="email">Email address</label>
-                        <input onChange={changeEmail} value={userData.email} type="email" className="form-control" id="email" placeholder="Enter email"/>
-                        
-                    </div>
-                    <div className="form-group">
-                        <label for="password">Password</label>
-                        <input onChange={changePassword} value={userData.password}  className="form-control" id="password" placeholder="Password"/>
-                    </div>
-                    <div className="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input onChange={changeConfirmPassword} value={userData.confirmPassword}  className="form-control" id="confirmPassword" placeholder="Confirm Password"/>
-                    </div>
-                    
-                   
-                </form>
-                <button onClick={clickOnSignUp} type="button" className="btn btn-primary">Submit</button>
-                {/* <form>
-                    
-                </form>
-
-                <div className='sign-up__form'>
-                    <input onChange={changeEmail} value={userData.email} placeholder='Enter your email'/>
-                    <input onChange={changePassword} value={userData.password}  placeholder='Enter your password'/>
-                    <input onChange={changeConfirmPassword} value={userData.confirmPassword}  placeholder='Confirm your password'/>
+            </div>
+               
+            <form>
+                <div className="form-group">
+                    <label htmlFor="email">Email address</label>
+                    <input onChange={changeEmail} value={userData.email} type="email" className="form-control" id="email" placeholder="Enter email"/>
                 </div>
-                <input onClick={clickOnSignUp} type='button' value='Sign Up'/>
-            
-             */}
-           
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input onChange={changePassword} value={userData.password}  className="form-control" id="password" placeholder="Password"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input onChange={changeConfirmPassword} value={userData.confirmPassword}  className="form-control" id="confirmPassword" placeholder="Confirm Password"/>
+                </div>
+                <button onClick={clickOnSignUp} className="btn btn-primary">Submit</button>
+                
+            </form>
             
         </div>
     )
