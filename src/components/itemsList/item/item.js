@@ -19,7 +19,7 @@ export const Item = ({data}) => {
             <label class="form-check-label" for="autoSizingCheck2"> */}
             
            
-            {(data.inStock === 'true') ? <i class="fa fa-check" aria-hidden="true"></i>
+            {(data.inStock === true) ? <i class="fa fa-check" aria-hidden="true"></i>
             :  <i class="fas fa-ban"></i>}
             In stock
             {/* </label> */}
