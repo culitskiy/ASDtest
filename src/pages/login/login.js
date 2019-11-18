@@ -23,26 +23,22 @@ export const Login = () => {
 
     if(canEnter === true){
         return <Redirect to={{pathname:'/search'}}/>;
-            
-        
     };
 
     return(
         <div className='login'>
             <form >
-                    <div className="form-group">
-                        <label htmlFor="email">Email address</label>
-                        <input ref={emailRef} type="email" className="form-control" id="email" placeholder="Enter email"/>
-                        
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input ref={passwordRef} className="form-control" id="password" placeholder="Password"/>
-                    </div>
-                    <button onClick={checkUserData} className="btn btn-primary">Login</button>
-                   
-                </form>
-                
+                <div className="form-group">
+                    <label htmlFor="email">Email address</label>
+                    <input ref={emailRef} type="email" className="form-control" id="email" placeholder="Enter email"/>
+                    
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input ref={passwordRef} type="password" className="form-control" id="password" placeholder="Password"/>
+                </div>
+                <button onClick={checkUserData} className="btn btn-primary">Login</button>   
+            </form>  
         </div>
     )
 }

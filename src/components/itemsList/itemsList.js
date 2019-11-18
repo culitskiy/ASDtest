@@ -1,27 +1,25 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { Item } from './item/item';
 import './itemList.css';
 
-export const ItemsList = ({data, func}) => {
+export const ItemsList = ({data, addItem}) => {
 
-    // const [itemsData, setItemsData] = useState(data);
-    console.log('items');
-    console.log(data);
     let items;
     if (data){
-        items = data.map((element, index) => {
+        items = data.map((element) => {
             return(
-                <div className='item'>
-                    <Item  data={element} key={index}/>
+                <div key={`${element.name}${element.color}${element.date}`} className='item'>
+                    <Item addItem={addItem} data={element} />
                 </div>
                
             )
         })
     }
    
-    return (<div className='itemList'>
-        {items}
-      
-    </div>
+    return (
+        <div className='itemList'>
+            {items}
+        
+        </div>
     )
 }

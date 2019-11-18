@@ -75,7 +75,6 @@ export const SignUp = () => {
                 {errorEmailMessage}
                 {errorPasswordMessage}
             </div>
-               
             <form>
                 <div className="form-group">
                     <label htmlFor="email">Email address</label>
@@ -83,16 +82,14 @@ export const SignUp = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input onChange={changePassword} value={userData.password}  className="form-control" id="password" placeholder="Password"/>
+                    <input onChange={changePassword} value={userData.password} type="password"  className="form-control" id="password" placeholder="Password"/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="confirmPassword">Confirm Password</label>
-                    <input onChange={changeConfirmPassword} value={userData.confirmPassword}  className="form-control" id="confirmPassword" placeholder="Confirm Password"/>
+                    <input onChange={changeConfirmPassword} value={userData.confirmPassword} type="password"  className="form-control" id="confirmPassword" placeholder="Confirm Password"/>
                 </div>
                 <button onClick={clickOnSignUp} className="btn btn-primary">Submit</button>
-                
             </form>
-            
         </div>
     )
 }

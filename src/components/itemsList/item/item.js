@@ -1,38 +1,28 @@
 import React from 'react';
+import './item.css';
 
-
-export const Item = ({data}) => {
-    console.log(data.name);
-    
-    
+export const Item = ({data, addItem}) => {
     return(
         <div className="media" style={{width:"fit-content"}} >
-            <img src={`../../../img/${data.image}`} className="align-self-center mr-3" style={{height: "100%"}} alt="..."/>
-            <div class="col-auto">
-        <h5>{data.name}</h5>
-        <h5>{data.color}</h5>
-        </div>
-        <div class="col-auto">
-        <h5>{data.date}</h5>
-        <div class="form-check">
-            {/* <input class="form-check-input" type="checkbox" id="autoSizingCheck2" />
-            <label class="form-check-label" for="autoSizingCheck2"> */}
+            <div className='img' style={{backgroundImage:`url(/../../../img/${data.image})`}}>
+            </div>
             
-           
-            {(data.inStock === true) ? <i class="fa fa-check" aria-hidden="true"></i>
-            :  <i class="fas fa-ban"></i>}
-            In stock
-            {/* </label> */}
-        </div>
-        </div>
-        <div class="col-auto">
-        <h5>{data.price}$</h5>
-        <button type="submit" class="btn btn-primary">Order</button>
-        </div>
-        
-        
-       
-        
+            <div className="col-auto">
+                <h5>{data.name}</h5>
+                <h5>{data.color}</h5>
+            </div>
+            <div className="col-auto">
+                <h5>{data.date}</h5>
+                <div className="form-check">
+                    {(data.inStock === true) ? <i className="fa fa-check" aria-hidden="true"></i>
+                    :  <i className="fas fa-ban"></i>}
+                    In stock
+                </div>
+            </div>
+            <div className="col-auto">
+                <h5>{data.price}$</h5>
+                <button onClick={()=> addItem(data)} type="submit" className="btn btn-primary">Order</button>
+            </div>
       </div>
     )
 }
